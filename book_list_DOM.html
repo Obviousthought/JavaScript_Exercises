@@ -1,0 +1,142 @@
+<html>
+<head>
+    <title>
+
+    </title>
+</head>
+
+
+<body>
+
+    <h1>My Book List</h1>
+
+    <div class="container">
+        <h2>List of books:</h2>
+            
+
+
+    </div>
+
+
+
+
+
+    <script type="text/javascript">
+
+        var BookList = function (bookArray) {
+            this.bookArray = bookArray;
+            this.booksRead = 0;
+            this.notRead = 0;
+            this.nextBook = null;
+            this.currentBook =null;
+            this.lastBook = null;
+            this.add = function (Book) {
+                this.bookArray.push(Book);
+                if (Book.bookReaded === true) {
+                    this.booksRead++;
+                    this.lastBook = checkDates(this.bookArray);
+                }
+                else {
+                    this.notRead++;
+                }
+            };
+            this.finishBook = function(Book) {
+                bookIsThere = false;
+                for (var i = 0; i < bookArray.length; i++) {
+                    if (Book === bookArray[i]) {
+                        bookIsThere = true;
+                    }
+                }
+                if (bookIsThere === true) {
+                    Book.bookReaded = true;
+                    Book.bookReadDate = new Date();
+                    this.booksRead++;
+                    this.notRead--;
+                }
+                else {
+                    console.log("Sorry, that Book is not in this Book List.");
+                }
+
+            };
+
+        };
+
+        var checkDates = function(bookArray) {
+            var lastRead = bookArray[0];
+            for (var i =1; i < bookArray.length; i++) {
+                if (bookArray[i].bookReadDate >= lastRead.bookReadDate) {
+                    lastRead = bookArray[i];
+                }
+            }
+            return lastRead;
+
+        };
+
+
+        var Book = function(bookTitle, bookGenre, bookAuthor, bookReaded, bookReadDate, bookImage) {
+            this.bookTitle = bookTitle;
+            this.bookGenre = bookGenre;
+            this.bookAuthor = bookAuthor;
+            this.bookReaded = bookReaded;
+            this.bookReadDate = bookReadDate;
+            this.bookImage = new Image();
+        };
+
+        
+        var sorcerersStone = new Book("Harry Potter and the Sorcerer's Stone", "Fantasy", "Rowling", true, new Date(2013,05,10), "http://upload.wikimedia.org/wikipedia/en/b/bf/Harry_Potter_and_the_Sorcerer's_Stone.jpg");
+        var chamberOfSecrets = new Book("Harry Potter and the Chamber of Secrets", "Fantasy", "Rowling", true, new Date(2004,08,16));
+        var prisonerOfAzcaban = new Book("prisonerOfAzcaban", "Fantasy", "Rowling", true, new Date(1995,04,04));
+        var gobletOfFire = new Book("gobletOfFire","Fantasy", "Rowling", false);
+        var orderOfThePhoenix = new Book("orderOfThePhoenix","Fantasy", "Rowling", false);
+        var halfBloodPrince = new Book("halfBloodPrince","Fantasy", "Rowling", false);
+        var deathlyHallows = new Book("deathlyHallows","Fantasy", "Rowling", false);
+
+
+        var HarryPotter = new BookList([]);
+
+        HarryPotter.add(sorcerersStone);
+        HarryPotter.add(chamberOfSecrets);
+        HarryPotter.add(prisonerOfAzcaban);
+        HarryPotter.add(gobletOfFire);
+        HarryPotter.add(orderOfThePhoenix);
+        HarryPotter.add(halfBloodPrince);
+        HarryPotter.add(deathlyHallows);
+
+    
+
+    var ul = document.createElement("ul");
+    for (var i = 0; i < HarryPotter.bookArray.length; i++) {
+        var li = document.createElement("li");
+        li.innerHTML = "Book: " + HarryPotter.bookArray[i].bookTitle + " by: " + HarryPotter.bookArray[i].bookAuthor;
+        ul.appendChild(li);
+        var img = document.createElement('img');
+        img.src = HarryPotter.bookArray[i].bookImage;
+        li.appendChild(img);
+    };
+    document.body.appendChild(ul);
+
+
+
+    // var newImg = document.createElement('img');
+    // newImg.src = 
+
+
+    // for (var i = 0; i < HarryPotter.bookArray.length; i++) {
+    //     var paragraph = document.createElement("p");
+    //     paragraph.innerHTML = "Book: " + HarryPotter.bookArray[i].bookTitle + " by: " + HarryPotter.bookArray[i].bookAuthor;
+    //     document.body.appendChild(paragraph);
+    // };
+        
+
+
+        // var ul = document.createElement("ul");
+        //     for (var i = 0; i < .length; i++) {
+        //         var li = document.createElement("li");
+        //         li.innerHTML = "New book: " + i;
+        //         ul.appendChild(li);
+    </script>
+
+
+
+</body>
+</html>
